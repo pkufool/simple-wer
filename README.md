@@ -44,7 +44,7 @@ The `hyps.txt` contains:
 2       I hate YOU
 ```
 
-The the following command:
+Run the following command:
 
 ```
 simple-wer --test-name example refs.txt hyps.txt
