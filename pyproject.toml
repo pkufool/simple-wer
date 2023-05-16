@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple-wer"
+version = "0.1"
+authors = [
+  { name="Wei Kang", email="wkang.pku@gmail.com" },
+]
+description = "A simple commandline tool for calculating WERs."
+dependencies = [
+  "click>=6.7",
+  "kaldialign",
+]
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools.packages.find]
+include = ['simple_wer']
+
+[project.urls]
+"Homepage" = "https://github.com/pkufool/simple-wer"
+"Bug Tracker" = "https://github.com/pkufool/simple-wer/issues"
+
+[project.scripts]
+simple-wer="simple_wer.simple_wer_cli:cli"

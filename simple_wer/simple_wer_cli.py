@@ -7,7 +7,7 @@ from .simple_wer import simple_wer, read_from_file
 
 @click.command()
 @click.option(
-    "--test_name",
+    "--test-name",
     default="test",
     help="The name for current test, it is used to distinguish the file names for different tests.",
 )
