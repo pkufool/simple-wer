@@ -224,7 +224,8 @@ def read_from_file(refs: str, hyps: str) -> List[Tuple[str, List[str], List[str]
             refs_dict[utt_id] = text.split()
     with open(hyps, "r") as f:
         for line in f.readlines():
-            utt_id, text = line.strip().split("\t")
+            utt_id, *rest = line.strip().split("\t")
+            text = rest[0] if rest else ""
             if utt_id in refs_dict:
                 results.append((utt_id, refs_dict[utt_id], text.split()))
     return results
