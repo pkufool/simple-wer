@@ -31,4 +31,4 @@ def cli(test_name, logdir, refs, hyps):
         level=logging.INFO,
     )
     results = read_from_file(refs=refs, hyps=hyps)
-    simple_wer(logdir=logdir, test_name=test_name, results=results)
+    simple_wer(results=results, logdir=logdir, test_name=test_name)

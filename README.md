@@ -9,7 +9,34 @@ pip install simple-wer
 ```
 
 
-## Usage
+## Python API Usage
+
+```python
+from simple_wer import simple_wer
+
+# results is a list of (utterance_id, reference_words, hypothesis_words)
+results = [
+    ("utt1", ["I", "LOVE", "YOU"], ["i", "LOVE", "YOU"]),
+    ("utt2", ["I", "HATE", "YOU"], ["I", "hate", "YOU"]),
+]
+
+# Use with custom logdir and test name
+simple_wer(results, logdir="logs", test_name="my_test")
+
+# Or let logdir default to a temp directory and test_name to current timestamp
+simple_wer(results)
+```
+
+The `results` parameter is a list of tuples, each containing:
+- `utterance_id` (str): unique identifier for the utterance
+- `reference` (list[str]): reference transcript as a list of words
+- `hypothesis` (list[str]): hypothesis transcript as a list of words
+
+When `logdir` is `None` (default), a temporary directory is created automatically.
+When `test_name` is `None` (default), the current timestamp (microsecond precision) is used.
+
+
+## Command Line Usage
 
 ```
 $ simple-wer --help

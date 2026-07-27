@@ -1,6 +1,6 @@
 import logging
 
-from .simple_wer import simple_wer
+from .simple_wer import simple_wer, read_from_file
 from .simple_wer_cli import *
 
 logging.basicConfig(

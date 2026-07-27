@@ -1,6 +1,8 @@
 import logging
 import os
+import tempfile
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 from typing import List, Iterable, Optional, TextIO, Tuple, Union
 
@@ -8,11 +10,16 @@ import kaldialign
 
 
 def simple_wer(
-    logdir: str,
-    test_name: str,
     results: List[Tuple[str, List[str], List[str]]],
+    logdir: Optional[str] = None,
+    test_name: Optional[str] = None,
 ):
-    logdir = Path(logdir)
+    if logdir is None:
+        logdir = Path(tempfile.mkdtemp(prefix="simple_wer_"))
+    else:
+        logdir = Path(logdir)
+    if test_name is None:
+        test_name = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
     os.makedirs(logdir, exist_ok=True)
 
     recog_path = logdir / f"recogs-{test_name}.txt"
