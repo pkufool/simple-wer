@@ -4,7 +4,7 @@ import tempfile
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
-from typing import List, Iterable, Optional, TextIO, Tuple, Union
+from typing import Dict, List, Iterable, Optional, TextIO, Tuple, Union
 
 import kaldialign
 
@@ -15,7 +15,7 @@ def simple_wer(
     test_name: Optional[str] = None,
 ):
     if logdir is None:
-        logdir = Path(tempfile.mkdtemp(prefix="simple_wer_"))
+        logdir = Path(tempfile.gettempdir()) / f"simple_wer_{datetime.now().strftime('%Y%m%d')}"
     else:
         logdir = Path(logdir)
     if test_name is None:
