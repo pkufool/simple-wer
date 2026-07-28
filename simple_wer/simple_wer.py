@@ -31,9 +31,10 @@ def simple_wer(
     # ref/hyp pairs.
     errs_filename = logdir / f"errs-{test_name}.txt"
     with open(errs_filename, "w") as f:
-        wer = write_error_stats(f, f"{test_name}", results, enable_log=True)
+        wer, ins_errs, del_errs, sub_errs = write_error_stats(f, f"{test_name}", results, enable_log=True)
 
     logging.info("Wrote detailed error stats to {}".format(errs_filename))
+    return wer, ins_errs, del_errs, sub_errs
 
 
 def store_transcripts(filename: str, texts: Iterable[Tuple[str, str, str]]) -> None:
@@ -57,7 +58,7 @@ def store_transcripts(filename: str, texts: Iterable[Tuple[str, str, str]]) -> N
 def write_error_stats(
     f: TextIO,
     test_set_name: str,
-    results: List[Tuple[str, str]],
+    results: List[Tuple[str, str, str]],
     enable_log: bool = True,
 ) -> float:
     """Write statistics based on predicted results and reference transcripts.
@@ -92,7 +93,7 @@ def write_error_stats(
         If True, also print detailed WER to the console.
         Otherwise, it is written only to the given file.
     Returns:
-      Return None.
+      A tuple containing total error rate, insertion error rate, deletion error rate, and substitution error rate.
     """
     subs: Dict[Tuple[str, str], int] = defaultdict(int)
     ins: Dict[str, int] = defaultdict(int)
@@ -212,7 +213,7 @@ def write_error_stats(
         hyp_count = corr + hyp_sub + ins
 
         print(f"{word}   {corr} {tot_errs} {ref_count} {hyp_count}", file=f)
-    return float(tot_err_rate)
+    return float(tot_err_rate), float(ins_errs), float(del_errs), float(sub_errs)
 
 
 def read_from_file(refs: str, hyps: str) -> List[Tuple[str, List[str], List[str]]]:
